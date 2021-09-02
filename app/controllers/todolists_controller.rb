@@ -4,10 +4,12 @@ class TodolistsController < ApplicationController
   end
 
   def create
-    list = List.new(list_params) #インスタンス
-    list.save
-
-    redirect_to todolist_path(list.id)
+    @list = List.new(list_params) #インスタンス
+    if @list.save
+      redirect_to todolist_path(@list.id)
+    else
+      render :new #redirect_to todolists_new_path
+    end
   end
 
   def index
